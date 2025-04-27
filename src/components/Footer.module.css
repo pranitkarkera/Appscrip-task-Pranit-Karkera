@@ -1,0 +1,204 @@
+.footer {
+  background-color: #000;
+  color: #fff;
+  padding: 40px 60px;
+  font-family: Arial, sans-serif;
+}
+
+.topSection {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.newsletter {
+  flex: 1;
+}
+
+.newsletter h4 {
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.newsletter p {
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.inputGroup {
+  display: flex;
+}
+
+.inputGroup input {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+}
+
+.inputGroup button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.contact {
+  flex: 1;
+  font-size: 14px;
+}
+
+.contact h4 {
+  margin-top: 5px;
+  margin-bottom: 6px;
+  font-size: 16px;
+}
+
+.contact p {
+  margin: 4px 0;
+}
+
+.contact small {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #ccc;
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid #444;
+  margin: 30px 0;
+}
+
+.bottomSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.collapsibleSection {
+  margin-bottom: 20px;
+}
+
+.collapsibleTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.collapsibleTitle svg {
+  transition: transform 0.2s ease;
+}
+
+.collapsibleContent {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.collapsibleContent.open {
+  max-height: 500px;
+}
+
+.socialIcons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.paymentIcons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.paymentIcons img {
+  width: 40px;
+  height: auto;
+}
+
+.copyRight {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 12px;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 20px; 
+  }
+
+  .topSection {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .newsletter,
+  .contact {
+    flex: none;
+    width: 100%;
+  }
+
+  .inputGroup {
+    flex-direction: column;
+  }
+
+  .inputGroup input {
+    margin-bottom: 10px;
+  }
+
+  .contact h4 {
+    text-align: left;
+  }
+
+  .bottomSection {
+    margin-top: 20px;
+  }
+
+  .collapsibleSection {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .collapsibleContent {
+    margin-top: 10px;
+  }
+}
+
+@media (min-width: 769px) {
+  .collapsibleTitle svg {
+    display: none; 
+  }
+
+  .bottomSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .collapsibleSection {
+    width: auto;
+    margin-right: 20px;
+  }
+
+  .columns {
+    display: flex;
+    width: 100%;
+    gap: 50px;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}

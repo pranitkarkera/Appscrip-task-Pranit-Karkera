@@ -1,0 +1,21 @@
+.checkoutContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  padding: 1rem;
+  background-color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.successMessage {
+  color: #2e7d32;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  background-color: #fff;
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(205, 209, 205, 0.3);
+  user-select: none;
+}
