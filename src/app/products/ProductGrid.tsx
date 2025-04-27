@@ -62,6 +62,9 @@ export default function ProductGrid() {
   };
 
   // Sort helper
+  useEffect(() => {
+  if (loading || error) return;
+
   const sortProducts = (productsToSort: Product[]) => {
     switch (sortBy.toUpperCase()) {
       case "PRICE: LOW TO HIGH":
@@ -84,32 +87,45 @@ export default function ProductGrid() {
     }
   };
 
-  // Filter, sort, shuffle products when dependencies change
-  useEffect(() => {
-    if (loading || error) return;
+  // Filter products based on searchQuery and selectedCategory
+  let filtered = products;
 
-    let filtered = products;
+  if (searchQuery) {
+    filtered = filtered.filter((product) =>
+      product.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
 
-    if (searchQuery) {
-      filtered = filtered.filter((product) =>
-        product.title.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
+  if (selectedCategory) {
+    filtered = filtered.filter(
+      (product) => product.category === selectedCategory
+    );
+  }
 
-    if (selectedCategory) {
-      filtered = filtered.filter(
-        (product) => product.category === selectedCategory
-      );
-    }
+  // Sort the filtered products
+  let sorted = sortProducts(filtered);
 
-    let sorted = sortProducts(filtered);
+  // Shuffle if sortBy is RECOMMENDED
+  // if (sortBy.toUpperCase() === "RECOMMENDED") {
+  //   const shuffleArray = (array: Product[]) => {
+  //     const arr = [...array];
+  //     for (let i = arr.length - 1; i > 0; i--) {
+  //       const j = Math.floor(Math.random() * (i + 1));
+  //       [arr[i], arr[j]] = [arr[j], arr[i]];
+  //     }
+  //     return arr;
+  //   };
+  //   sorted = shuffleArray(sorted);
+  // }
 
-    if (sortBy.toUpperCase() === "RECOMMENDED") {
+  if (sortBy.toUpperCase() === "RECOMMENDED") {
       sorted = shuffleArray(sorted);
     }
 
-    setSortedProducts(sorted);
-  }, [products, searchQuery, selectedCategory, sortBy, loading, error]);
+  // Update the state with sorted products
+  setSortedProducts(sorted);
+}, [products, searchQuery, selectedCategory, sortBy, loading, error]);
+
 
   const handleSortChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSortBy(e.target.value);

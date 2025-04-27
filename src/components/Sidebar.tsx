@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import styles from "./Sidebar.module.css";
 
@@ -39,29 +39,35 @@ const FILTER_SECTIONS = [
   },
 ];
 
-export default function Sidebar({ products, setSelectedCategory }) {
-  const [customizable, setCustomizable] = useState(false);
-  const [expandedSections, setExpandedSections] = useState(
-    FILTER_SECTIONS.reduce((acc, section) => {
-      acc[section.title] = false;
-      return acc;
-    }, {})
-  );
-  const [selectedOptions, setSelectedOptions] = useState(
-    FILTER_SECTIONS.reduce((acc, section) => {
-      acc[section.title] = [];
-      return acc;
-    }, {})
-  );
+// Define stable initial states outside the component
+const initialExpandedSections = FILTER_SECTIONS.reduce((acc, section) => {
+  acc[section.title] = false;
+  return acc;
+}, {} as Record<string, boolean>);
 
-  const toggleSection = (title) => {
+const initialSelectedOptions = FILTER_SECTIONS.reduce((acc, section) => {
+  acc[section.title] = [];
+  return acc;
+}, {} as Record<string, string[]>);
+
+interface SidebarProps {
+  products: any[]; // Adjust type as needed
+  setSelectedCategory: (category: string | null) => void;
+}
+
+export default function Sidebar({ products, setSelectedCategory }: SidebarProps) {
+  const [customizable, setCustomizable] = useState(false);
+  const [expandedSections, setExpandedSections] = useState(initialExpandedSections);
+  const [selectedOptions, setSelectedOptions] = useState(initialSelectedOptions);
+
+  const toggleSection = (title: string) => {
     setExpandedSections((prev) => ({
       ...prev,
       [title]: !prev[title],
     }));
   };
 
-  const handleCheckboxChange = (sectionTitle, option) => {
+  const handleCheckboxChange = (sectionTitle: string, option: string) => {
     setSelectedOptions((prev) => {
       const current = prev[sectionTitle];
       if (current.includes(option)) {
@@ -76,12 +82,13 @@ export default function Sidebar({ products, setSelectedCategory }) {
         };
       }
     });
+
     if (sectionTitle === "IDEAL FOR") {
       setSelectedCategory(option);
     }
   };
 
-  const handleUnselectAll = (sectionTitle) => {
+  const handleUnselectAll = (sectionTitle: string) => {
     setSelectedOptions((prev) => ({
       ...prev,
       [sectionTitle]: [],

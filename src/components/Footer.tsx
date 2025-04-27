@@ -125,20 +125,35 @@ export default function Footer() {
             alt="Google Pay"
             width={40}
             height={50}
+            style={{ width: "60px", height: "auto" }}
           />
-          <Image src="/images/paypal.svg" alt="Paypal" width={40} height={50} />
+          <Image
+            src="/images/paypal.svg"
+            alt="Paypal"
+            width={40}
+            height={50}
+            style={{ width: "60px", height: "auto" }}
+          />
           <Image
             src="/images/mastercard.svg"
             alt="Mastercard"
             width={40}
             height={50}
+            style={{ width: "60px", height: "auto" }}
           />
-          <Image src="/images/amex.svg" alt="Amex" width={40} height={50} />
+          <Image
+            src="/images/amex.svg"
+            alt="Amex"
+            width={40}
+            height={50}
+            style={{ width: "60px", height: "auto" }}
+          />
           <Image
             src="/images/apple.svg"
             alt="Apple Pay"
             width={40}
             height={50}
+            style={{ width: "60px", height: "auto" }}
           />
         </div>
       </div>

@@ -23,8 +23,7 @@ export const metadata: Metadata = {
     "Discover a wide range of high-quality products at Logo. Browse our collection and find the perfect item for you.",
   openGraph: {
     title: "Shop Our Products - Logo",
-    description:
-      "Discover a wide range of high-quality products at Logo.",
+    description: "Discover a wide range of high-quality products at Logo.",
   },
 };
 
