@@ -11,6 +11,7 @@ import { Product } from "@/types/product";
 
 interface ProductGridProps {
   products: Product[];
+  isAuthenticated: boolean;
 }
 
 export default function ProductGrid({
@@ -21,7 +22,8 @@ export default function ProductGrid({
   const [showSidebar, setShowSidebar] = useState(true);
   const [sortBy, setSortBy] = useState("RECOMMENDED");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [sortedProducts, setSortedProducts] = useState<Product[]>([]);
+  const [sortedProducts, setSortedProducts] =
+    useState<Product[]>(initialProducts);
 
   const { searchQuery } = useSearch();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
@@ -30,6 +32,10 @@ export default function ProductGrid({
     const token = localStorage.getItem("token");
     setIsAuthenticated(!!token);
   }, []);
+
+  useEffect(() => {
+    setSortedProducts(initialProducts);
+  }, [initialProducts]);
 
   const shuffleArray = (array: Product[]) => {
     const arr = [...array];
@@ -62,7 +68,6 @@ export default function ProductGrid({
     }
   };
 
-  
   useEffect(() => {
     let filtered = products;
 
@@ -80,7 +85,6 @@ export default function ProductGrid({
 
     let sorted = sortProducts(filtered);
 
-    
     if (sortBy.toUpperCase() === "RECOMMENDED") {
       sorted = shuffleArray(sorted);
     }
