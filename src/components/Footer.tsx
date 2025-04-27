@@ -9,11 +9,11 @@ import {
   FaChevronDown,
   FaChevronUp,
 } from "react-icons/fa";
-import amex from "../images/amex.svg";
-import apple from "../images/apple.svg";
-import googlepay from "../images/googlepay.svg";
-import mastercard from "../images/mastercard.svg";
-import paypal from "../images/paypal.svg";
+// import amex from "../images/amex.svg";
+// import apple from "../images/apple.svg";
+// import googlepay from "../images/googlepay.svg";
+// import mastercard from "../images/mastercard.svg";
+// import paypal from "../images/paypal.svg";
 
 export default function Footer() {
   const [mettaMuseOpen, setMettaMuseOpen] = useState(false);
@@ -124,11 +124,26 @@ export default function Footer() {
 
         {/* Payment Icons */}
         <div className={styles.paymentIcons}>
-          <Image src={googlepay} alt="Google Pay" />
-          <Image src={paypal} alt="Paypal" />
-          <Image src={mastercard} alt="Mastercard" />
-          <Image src={amex} alt="Amex" />
-          <Image src={apple} alt="Apple Pay" />
+          <Image
+            src="/images/googlepay.svg"
+            alt="Google Pay"
+            width={40}
+            height={50}
+          />
+          <Image src="/images/paypal.svg" alt="Paypal" width={40} height={50} />
+          <Image
+            src="/images/mastercard.svg"
+            alt="Mastercard"
+            width={40}
+            height={50}
+          />
+          <Image src="/images/amex.svg" alt="Amex" width={40} height={50} />
+          <Image
+            src="/images/apple.svg"
+            alt="Apple Pay"
+            width={40}
+            height={50}
+          />
         </div>
       </div>
 
