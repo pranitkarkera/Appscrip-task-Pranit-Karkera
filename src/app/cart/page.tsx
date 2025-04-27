@@ -53,6 +53,8 @@ export default function CartPage() {
                     src={item.image}
                     alt={item.title}
                     className={styles.productImage}
+                    width={150}
+                    height={50}
                   />
                   <span>{item.title}</span>
                 </td>

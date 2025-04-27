@@ -15,7 +15,15 @@ interface CartProduct {
   image: string;
   price: number;
   quantity: number;
-  category?: string;
+  category: string; // Ensure category is required
+}
+
+interface WishlistProduct {
+  id: number;
+  title: string;
+  image: string;
+  price: number;
+  category?: string; // Optional in WishlistProduct
 }
 
 export default function WishlistPage() {
@@ -24,20 +32,20 @@ export default function WishlistPage() {
 
   const [addingToCart, setAddingToCart] = useState<number | null>(null);
 
-  const handleAddToCart = (product: Product) => {
-    setAddingToCart(product.id);
+  const handleAddToCart = (item: WishlistProduct) => {
+    setAddingToCart(item.id);
 
     const cartProduct: CartProduct = {
-      id: product.id,
-      title: product.title,
-      price: product.price,
-      image: product.image,
+      id: item.id,
+      title: item.title,
+      price: item.price,
+      image: item.image,
       quantity: 1,
-      category: product.category,
+      category: item.category || "Uncategorized", // Provide a default value if category is missing
     };
 
     addToCart(cartProduct);
-    removeFromWishlist(product.id);
+    removeFromWishlist(item.id);
 
     setTimeout(() => setAddingToCart(null), 2000);
   };
@@ -74,6 +82,8 @@ export default function WishlistPage() {
               src={item.image}
               alt={item.title}
               className={styles.productImage}
+              width={150}
+              height={50}
             />
             <h5>{item.title}</h5>
             <p>${item.price}</p>
