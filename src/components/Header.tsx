@@ -11,7 +11,7 @@ import {
   FaShoppingBag,
   FaUser,
 } from "react-icons/fa";
-import logo from "../public/logo.png";
+import logo from "../images/logo.png";
 import { useSearch } from "@/context/SearchContext";
 
 export default function Header() {
@@ -49,7 +49,13 @@ export default function Header() {
 
         <div className={styles.logoWrapper}>
           <Link href="/">
-            <Image src={logo} alt="Logo" className={styles.logoIcon} />
+            <Image
+              src={logo}
+              alt="Logo"
+              className={styles.logoIcon}
+              // width={140}
+              // height={50}
+            />
           </Link>
         </div>
 
@@ -78,10 +84,7 @@ export default function Header() {
               <FaShoppingBag className={styles.icon} />
             </Link>
             <div className={styles.desktopIcons}>
-              <Link
-                href="/profile" 
-                aria-label="Profile"
-              >
+              <Link href="/profile" aria-label="Profile">
                 <FaUser className={styles.icon} />
               </Link>
               <div className={styles.language}>

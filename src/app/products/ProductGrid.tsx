@@ -13,25 +13,23 @@ interface ProductGridProps {
   products: Product[];
 }
 
-export default function ProductGrid({ products: initialProducts }: ProductGridProps) {
+export default function ProductGrid({
+  products: initialProducts,
+}: ProductGridProps) {
   const [products] = useState<Product[]>(initialProducts);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [showSidebar, setShowSidebar] = useState(true);
   const [sortBy, setSortBy] = useState("RECOMMENDED");
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // Initialize as false
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [sortedProducts, setSortedProducts] = useState<Product[]>([]);
 
   const { searchQuery } = useSearch();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
-  // Check for token in localStorage on component mount
   useEffect(() => {
     const token = localStorage.getItem("token");
-    setIsAuthenticated(!!token); // Set isAuthenticated based on token existence
+    setIsAuthenticated(!!token);
   }, []);
-
-  const handleSortChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSortBy(e.target.value);
-  };
 
   const shuffleArray = (array: Product[]) => {
     const arr = [...array];
@@ -60,23 +58,39 @@ export default function ProductGrid({ products: initialProducts }: ProductGridPr
         );
       case "RECOMMENDED":
       default:
-        return shuffleArray(productsToSort);
+        return productsToSort;
     }
   };
 
-  const searchedProducts = searchQuery
-    ? products.filter((product) =>
+  
+  useEffect(() => {
+    let filtered = products;
+
+    if (searchQuery) {
+      filtered = filtered.filter((product) =>
         product.title.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : products;
+      );
+    }
 
-  const filteredProducts = selectedCategory
-    ? searchedProducts.filter(
+    if (selectedCategory) {
+      filtered = filtered.filter(
         (product) => product.category === selectedCategory
-      )
-    : searchedProducts;
+      );
+    }
 
-  const sortedProducts = sortProducts(filteredProducts);
+    let sorted = sortProducts(filtered);
+
+    
+    if (sortBy.toUpperCase() === "RECOMMENDED") {
+      sorted = shuffleArray(sorted);
+    }
+
+    setSortedProducts(sorted);
+  }, [products, searchQuery, selectedCategory, sortBy]);
+
+  const handleSortChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSortBy(e.target.value);
+  };
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);

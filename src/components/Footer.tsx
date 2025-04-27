@@ -9,11 +9,11 @@ import {
   FaChevronDown,
   FaChevronUp,
 } from "react-icons/fa";
-import amex from "../public/amex.svg";
-import apple from "../public/apple.svg";
-import googlepay from "../public/googlepay.svg";
-import mastercard from "../public/mastercard.svg";
-import paypal from "../public/paypal.svg";
+import amex from "../images/amex.svg";
+import apple from "../images/apple.svg";
+import googlepay from "../images/googlepay.svg";
+import mastercard from "../images/mastercard.svg";
+import paypal from "../images/paypal.svg";
 
 export default function Footer() {
   const [mettaMuseOpen, setMettaMuseOpen] = useState(false);
