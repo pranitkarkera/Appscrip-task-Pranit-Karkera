@@ -92,29 +92,22 @@
   color: #fff;
 }
 
-.wishlistBtn {
-  background-color: #222;
-  border: 2px solid #222;
-  color: #fff;
-  padding: 0.5rem 0.75rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.wishlistBtn:hover {
-  background: #444;
-}
-
 .wishlistBtn svg {
-  color: inherit; 
+  color: inherit;
   width: 1.2em;
   height: 1.2em;
   transition: color 0.2s;
+}
+
+.active {
+  background-color: #e91e63; /* pink */
+  border-color: #e91e63;
+  color: white;
+}
+
+.active:hover {
+  background-color: #c2185b;
+  border-color: #c2185b;
 }
 
 .addToCartBtn {

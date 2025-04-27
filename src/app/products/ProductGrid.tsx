@@ -3,7 +3,7 @@
 import { useState, useEffect, ChangeEvent } from "react";
 import Link from "next/link";
 import { FaHeart, FaAngleLeft } from "react-icons/fa";
-import Sidebar from "@/components/Layout/Sidebar";
+import Sidebar from "@/components/Sidebar";
 import { useWishlist } from "@/context/WishlistContext";
 import { useSearch } from "@/context/SearchContext";
 import styles from "./ProductPage.module.css";
@@ -11,31 +11,23 @@ import { Product } from "@/types/product";
 
 interface ProductGridProps {
   products: Product[];
-  isAuthenticated: boolean;
 }
 
-export default function ProductGrid({
-  products: initialProducts,
-  isAuthenticated: initialIsAuthenticated,
-}: ProductGridProps) {
+export default function ProductGrid({ products: initialProducts }: ProductGridProps) {
   const [products] = useState<Product[]>(initialProducts);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [showSidebar, setShowSidebar] = useState(true);
   const [sortBy, setSortBy] = useState("RECOMMENDED");
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    initialIsAuthenticated
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Initialize as false
 
   const { searchQuery } = useSearch();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
-  // Update auth state on client mount to reflect latest localStorage token
+  // Check for token in localStorage on component mount
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!!token !== isAuthenticated) {
-      setIsAuthenticated(!!token);
-    }
-  }, [isAuthenticated]);
+    setIsAuthenticated(!!token); // Set isAuthenticated based on token existence
+  }, []);
 
   const handleSortChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSortBy(e.target.value);

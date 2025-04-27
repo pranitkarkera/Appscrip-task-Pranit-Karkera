@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./Header.module.css";
@@ -11,13 +11,20 @@ import {
   FaShoppingBag,
   FaUser,
 } from "react-icons/fa";
-import logo from "../../../public/logo.png";
+import logo from "../../public/logo.png";
 import { useSearch } from "@/context/SearchContext";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { searchQuery, setSearchQuery } = useSearch();
+
+  useEffect(() => {
+    // Check token existence on mount
+    const token = localStorage.getItem("token");
+    setIsAuthenticated(!!token);
+  }, []);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -30,7 +37,7 @@ export default function Header() {
     }
   };
 
-  const handleSearchChange = (e: any) => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
@@ -72,7 +79,10 @@ export default function Header() {
               <FaShoppingBag className={styles.icon} />
             </Link>
             <div className={styles.desktopIcons}>
-              <Link href="/profile" aria-label="Profile">
+              <Link
+                href="/profile" 
+                aria-label="Profile"
+              >
                 <FaUser className={styles.icon} />
               </Link>
               <div className={styles.language}>

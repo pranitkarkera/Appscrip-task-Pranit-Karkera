@@ -23,5 +23,5 @@ export default async function ProductPage() {
   const token = cookieStore.get("token")?.value;
   const isAuthenticated = !!token;
 
-  return <ProductGrid products={products} isAuthenticated={isAuthenticated} />;
+  return <ProductGrid products={products}/>;
 }

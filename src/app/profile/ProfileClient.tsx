@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { FaUser } from "react-icons/fa";
 import styles from "./profile.module.css";
-import { useEffect, useState } from "react";
 
 interface User {
   id: number;
@@ -28,12 +27,11 @@ interface ProfileClientProps {
 
 export default function ProfileClient({ user }: ProfileClientProps) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
-    router.replace("/");
+    router.push("/");
   };
 
   return (

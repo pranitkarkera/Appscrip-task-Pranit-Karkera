@@ -18,7 +18,7 @@ export interface CartProduct {
 
 interface CartContextProps {
   cart: CartProduct[];
-  addToCart: (product: Omit<CartProduct, "quantity">) => void;
+  addToCart: (product: CartProduct) => void;
   removeFromCart: (id: number) => void;
   updateQuantity: (id: number, quantity: number) => void;
   clearCart: () => void;

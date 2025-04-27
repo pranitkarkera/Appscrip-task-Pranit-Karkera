@@ -1,10 +1,8 @@
-// app/signin/page.tsx
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./signin.module.css";
-// import { setCookie } from "cookies-next";
 
 interface User {
   id: number;
@@ -36,21 +34,23 @@ export default function SigninPage() {
       }
 
       const data = await response.json();
-
-      document.cookie = `token=${data.token}; path=/;`;
+      const token = data.token;
 
       const usersRes = await fetch("https://fakestoreapi.com/users");
       const users: User[] = await usersRes.json();
       const foundUser = users.find((u: User) => u.username === username);
-      if (foundUser) {
 
-        document.cookie = `userId=${foundUser.id.toString()}; path=/;`;
+      if (foundUser) {
+        const userId = foundUser.id.toString();
+
+        // Store token and userId in localStorage
+        localStorage.setItem("token", token);
+        localStorage.setItem("userId", userId);
+
+        router.push("/"); // Redirect after login
       } else {
         setError("User not found after login.");
-        return;
       }
-
-      router.push("/");
     } catch {
       setError("An unexpected error occurred.");
     }
@@ -59,7 +59,6 @@ export default function SigninPage() {
   const handleGuestLogin = () => {
     setUsername("johnd");
     setPassword("m38rmF$");
-    setError("");
   };
 
   return (
