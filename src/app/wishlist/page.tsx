@@ -1,4 +1,3 @@
-// app/wishlist/page.tsx
 "use client";
 
 import { useState } from "react";
@@ -8,6 +7,7 @@ import { FaHeartBroken } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./Wishlist.module.css";
+import { Product } from "@/types/product";
 
 interface CartProduct {
   id: number;
@@ -15,6 +15,7 @@ interface CartProduct {
   image: string;
   price: number;
   quantity: number;
+  category?: string;
 }
 
 export default function WishlistPage() {
@@ -23,7 +24,7 @@ export default function WishlistPage() {
 
   const [addingToCart, setAddingToCart] = useState<number | null>(null);
 
-  const handleAddToCart = (product: any) => {
+  const handleAddToCart = (product: Product) => {
     setAddingToCart(product.id);
 
     const cartProduct: CartProduct = {
@@ -32,6 +33,7 @@ export default function WishlistPage() {
       price: product.price,
       image: product.image,
       quantity: 1,
+      category: product.category,
     };
 
     addToCart(cartProduct);
@@ -42,71 +44,64 @@ export default function WishlistPage() {
 
   if (wishlist.length === 0) {
     return (
-      <>
-        <div
-          className={styles.container}
-          style={{ textAlign: "center", padding: "2rem" }}
+      <div
+        className={styles.container}
+        style={{ textAlign: "center", padding: "2rem" }}
+      >
+        <FaHeartBroken size={80} color="#ccc" />
+        <h2 style={{ marginTop: "1rem", color: "#555" }}>Empty!!</h2>
+        <Link
+          href="/"
+          style={{
+            color: "#777",
+            cursor: "pointer",
+            textDecoration: "underline",
+          }}
         >
-          <FaHeartBroken size={80} color="#ccc" />
-          <h2 style={{ marginTop: "1rem", color: "#555" }}>Empty!!</h2>
-          <Link
-            href="/"
-            style={{
-              color: "#777",
-              cursor: "pointer",
-              textDecoration: "underline",
-            }}
-          >
-            Add your favorites.
-          </Link>
-        </div>
-      </>
+          Add your favorites.
+        </Link>
+      </div>
     );
   }
 
   return (
-    <>
-
-      <div className={styles.container}>
-        <h1>Your Wishlist</h1>
-        <div className={styles.grid}>
-          {wishlist.map((item) => (
-            <div key={item.id} className={styles.card}>
-              <Image
-                src={item.image}
-                alt={item.title}
-                className={styles.productImage}
-              />
-              <h5>{item.title}</h5>
-              <p>${item.price}</p>
-              <div
-                style={{
-                  display: "flex",
-                  gap: "1rem",
-                  justifyContent: "center",
-                }}
+    <div className={styles.container}>
+      <h1>Your Wishlist</h1>
+      <div className={styles.grid}>
+        {wishlist.map((item) => (
+          <div key={item.id} className={styles.card}>
+            <Image
+              src={item.image}
+              alt={item.title}
+              className={styles.productImage}
+            />
+            <h5>{item.title}</h5>
+            <p>${item.price}</p>
+            <div
+              style={{
+                display: "flex",
+                gap: "1rem",
+                justifyContent: "center",
+              }}
+            >
+              <button
+                aria-label="Remove from wishlist"
+                onClick={() => removeFromWishlist(item.id)}
+                className={styles.wishlistBtn}
               >
-                <button
-                  aria-label="Remove from wishlist"
-                  onClick={() => removeFromWishlist(item.id)}
-                  className={styles.wishlistBtn}
-                >
-                  Remove
-                </button>
-                <button
-                  className={styles.addToCartBtn}
-                  onClick={() => handleAddToCart(item)}
-                  disabled={addingToCart === item.id}
-                >
-                  {addingToCart === item.id
-                    ? "Adding to Cart..."
-                    : "Add to Cart"}
-                </button>
-              </div>
+                Remove
+              </button>
+              <button
+                className={styles.addToCartBtn}
+                onClick={() => handleAddToCart(item)}
+                disabled={addingToCart === item.id}
+              >
+                {addingToCart === item.id ? "Adding to Cart..." : "Add to Cart"}
+              </button>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 }

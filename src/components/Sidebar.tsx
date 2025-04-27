@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import styles from "./Sidebar.module.css";
-import { Product } from "@/types/product";
+// import { Product } from "@/types/product";
 
 const FILTER_SECTIONS = [
   {
@@ -41,15 +41,15 @@ const FILTER_SECTIONS = [
 ];
 
 // Define stable initial states outside the component
-const initialExpandedSections = FILTER_SECTIONS.reduce((acc, section) => {
-  acc[section.title] = false;
-  return acc;
-}, {} as Record<string, boolean>);
+// const initialExpandedSections = FILTER_SECTIONS.reduce((acc, section) => {
+//   acc[section.title] = false;
+//   return acc;
+// }, {} as Record<string, boolean>);
 
-const initialSelectedOptions = FILTER_SECTIONS.reduce((acc, section) => {
-  acc[section.title] = [];
-  return acc;
-}, {} as Record<string, string[]>);
+// const initialSelectedOptions = FILTER_SECTIONS.reduce((acc, section) => {
+//   acc[section.title] = [];
+//   return acc;
+// }, {} as Record<string, string[]>);
 
 interface SidebarProps {
   setSelectedCategory: (category: string | null) => void;
