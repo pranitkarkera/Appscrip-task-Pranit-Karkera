@@ -50,11 +50,11 @@ export default function Header() {
         <div className={styles.logoWrapper}>
           <Link href="/">
             <Image
-              src="/images/logo.png"
+              src="/images/logo.svg"
               alt="Logo"
-              className={styles.logoIcon}
-              width={140}
-              height={50}
+              // className={styles.logoIcon}
+              width={100}
+              height={80}
             />
           </Link>
         </div>
