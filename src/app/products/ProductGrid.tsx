@@ -10,34 +10,48 @@ import { useSearch } from "@/context/SearchContext";
 import styles from "./ProductPage.module.css";
 import { Product } from "@/types/product";
 
-interface ProductGridProps {
-  products: Product[];
-  isAuthenticated: boolean;
+async function fetchProducts(): Promise<Product[]> {
+  const res = await fetch("https://fakestoreapi.com/products");
+  if (!res.ok) {
+    throw new Error("Failed to fetch products");
+  }
+  return res.json();
 }
 
-export default function ProductGrid({
-  products: initialProducts,
-}: ProductGridProps) {
-  const [products] = useState<Product[]>(initialProducts);
+export default function ProductGrid() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [showSidebar, setShowSidebar] = useState(true);
   const [sortBy, setSortBy] = useState("RECOMMENDED");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [sortedProducts, setSortedProducts] =
-    useState<Product[]>(initialProducts);
+  const [sortedProducts, setSortedProducts] = useState<Product[]>([]);
 
   const { searchQuery } = useSearch();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
+  // Fetch products on mount
+  useEffect(() => {
+    fetchProducts()
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message || "Failed to load products");
+        setLoading(false);
+      });
+  }, []);
+
+  // Check auth token on client mount
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsAuthenticated(!!token);
   }, []);
 
-  useEffect(() => {
-    setSortedProducts(initialProducts);
-  }, [initialProducts]);
-
+  // Shuffle helper
   const shuffleArray = (array: Product[]) => {
     const arr = [...array];
     for (let i = arr.length - 1; i > 0; i--) {
@@ -47,6 +61,7 @@ export default function ProductGrid({
     return arr;
   };
 
+  // Sort helper
   const sortProducts = (productsToSort: Product[]) => {
     switch (sortBy.toUpperCase()) {
       case "PRICE: LOW TO HIGH":
@@ -69,7 +84,10 @@ export default function ProductGrid({
     }
   };
 
+  // Filter, sort, shuffle products when dependencies change
   useEffect(() => {
+    if (loading || error) return;
+
     let filtered = products;
 
     if (searchQuery) {
@@ -91,7 +109,7 @@ export default function ProductGrid({
     }
 
     setSortedProducts(sorted);
-  }, [products, searchQuery, selectedCategory, sortBy]);
+  }, [products, searchQuery, selectedCategory, sortBy, loading, error]);
 
   const handleSortChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSortBy(e.target.value);
@@ -100,6 +118,9 @@ export default function ProductGrid({
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
   };
+
+  if (loading) return <p>Loading products...</p>;
+  if (error) return <p>Error loading products: {error}</p>;
 
   return (
     <div className={styles.pageContainer}>
@@ -144,6 +165,8 @@ export default function ProductGrid({
                     <Image
                       src={product.image}
                       alt={product.title}
+                      width={300}
+                      height={300}
                       title={product.title}
                     />
                   </div>

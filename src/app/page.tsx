@@ -1,9 +1,9 @@
-import ProductPage from "./products/ProductPage";
+import ProductGrid from "./products/ProductGrid";
 
 export default function Home() {
   return (
     <main>
-      <ProductPage/>
+      <ProductGrid/>
     </main>
   );
 }
