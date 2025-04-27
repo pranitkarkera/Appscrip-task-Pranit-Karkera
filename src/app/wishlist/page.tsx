@@ -7,7 +7,6 @@ import { FaHeartBroken } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./Wishlist.module.css";
-import { Product } from "@/types/product";
 
 interface CartProduct {
   id: number;
@@ -41,7 +40,7 @@ export default function WishlistPage() {
       price: item.price,
       image: item.image,
       quantity: 1,
-      category: item.category || "Uncategorized", // Provide a default value if category is missing
+      category: item.category || "Uncategorized", // Provide a default if missing
     };
 
     addToCart(cartProduct);
