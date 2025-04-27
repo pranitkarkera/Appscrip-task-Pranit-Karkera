@@ -2,6 +2,7 @@
 
 import { useState, useEffect, ChangeEvent } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { FaHeart, FaAngleLeft } from "react-icons/fa";
 import Sidebar from "@/components/Sidebar";
 import { useWishlist } from "@/context/WishlistContext";
@@ -140,7 +141,7 @@ export default function ProductGrid({
                   className={styles.cardLink}
                 >
                   <div className={styles.imageWrapper}>
-                    <img
+                    <Image
                       src={product.image}
                       alt={product.title}
                       title={product.title}

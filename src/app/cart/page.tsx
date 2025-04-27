@@ -1,6 +1,7 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "./CartPage.module.css";
@@ -48,7 +49,7 @@ export default function CartPage() {
             {cart.map((item) => (
               <tr key={item.id}>
                 <td className={styles.productCell}>
-                  <img
+                  <Image
                     src={item.image}
                     alt={item.title}
                     className={styles.productImage}

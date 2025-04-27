@@ -6,6 +6,7 @@ import { useWishlist } from "@/context/WishlistContext";
 import { useCart } from "@/context/CartContext";
 import { FaHeartBroken } from "react-icons/fa";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./Wishlist.module.css";
 
 interface CartProduct {
@@ -71,7 +72,7 @@ export default function WishlistPage() {
         <div className={styles.grid}>
           {wishlist.map((item) => (
             <div key={item.id} className={styles.card}>
-              <img
+              <Image
                 src={item.image}
                 alt={item.title}
                 className={styles.productImage}
