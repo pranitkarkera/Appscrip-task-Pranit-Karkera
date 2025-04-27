@@ -6,7 +6,7 @@ import { useWishlist } from "@/context/WishlistContext";
 import { useCart } from "@/context/CartContext";
 import { FaHeartBroken } from "react-icons/fa";
 import Link from "next/link";
-import styles from "./wishlist.module.css";
+import styles from "./Wishlist.module.css";
 
 interface CartProduct {
   id: number;

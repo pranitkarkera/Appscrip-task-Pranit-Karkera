@@ -11,7 +11,7 @@ import {
   FaShoppingBag,
   FaUser,
 } from "react-icons/fa";
-import logo from "../../public/logo.png";
+import logo from "../public/logo.png";
 import { useSearch } from "@/context/SearchContext";
 
 export default function Header() {
@@ -21,7 +21,6 @@ export default function Header() {
   const { searchQuery, setSearchQuery } = useSearch();
 
   useEffect(() => {
-    // Check token existence on mount
     const token = localStorage.getItem("token");
     setIsAuthenticated(!!token);
   }, []);
