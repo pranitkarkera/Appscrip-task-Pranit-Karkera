@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import styles from "./Sidebar.module.css";
+import { Product } from "@/types/product";
 
 const FILTER_SECTIONS = [
   {
@@ -51,14 +52,23 @@ const initialSelectedOptions = FILTER_SECTIONS.reduce((acc, section) => {
 }, {} as Record<string, string[]>);
 
 interface SidebarProps {
-  products: any[]; // Adjust type as needed
   setSelectedCategory: (category: string | null) => void;
 }
 
-export default function Sidebar({ products, setSelectedCategory }: SidebarProps) {
+export default function Sidebar({ setSelectedCategory }: SidebarProps) {
   const [customizable, setCustomizable] = useState(false);
-  const [expandedSections, setExpandedSections] = useState(initialExpandedSections);
-  const [selectedOptions, setSelectedOptions] = useState(initialSelectedOptions);
+  const [expandedSections, setExpandedSections] = useState(
+    FILTER_SECTIONS.reduce((acc, section) => {
+      acc[section.title] = false;
+      return acc;
+    }, {} as Record<string, boolean>)
+  );
+  const [selectedOptions, setSelectedOptions] = useState(
+    FILTER_SECTIONS.reduce((acc, section) => {
+      acc[section.title] = [];
+      return acc;
+    }, {} as Record<string, string[]>)
+  );
 
   const toggleSection = (title: string) => {
     setExpandedSections((prev) => ({
@@ -136,7 +146,7 @@ export default function Sidebar({ products, setSelectedCategory }: SidebarProps)
                 <a
                   href="#"
                   className={styles.unselectAll}
-                  onClick={(e) => {
+                  onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                     e.preventDefault();
                     handleUnselectAll(title);
                   }}

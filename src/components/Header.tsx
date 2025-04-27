@@ -84,9 +84,15 @@ export default function Header() {
               <FaShoppingBag className={styles.icon} />
             </Link>
             <div className={styles.desktopIcons}>
-              <Link href="/profile" aria-label="Profile">
-                <FaUser className={styles.icon} />
-              </Link>
+              {isAuthenticated ? (
+                <Link href="/profile" aria-label="Profile">
+                  <FaUser className={styles.icon} />
+                </Link>
+              ) : (
+                <Link href="/signin" aria-label="Sign In">
+                  Sign In
+                </Link>
+              )}
               <div className={styles.language}>
                 <span>EN</span>
               </div>

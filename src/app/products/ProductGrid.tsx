@@ -164,7 +164,7 @@ export default function ProductGrid() {
       <div className={styles.mainContainer}>
         {showSidebar && (
           <Sidebar
-            products={products}
+            // products={products}
             setSelectedCategory={setSelectedCategory}
           />
         )}
